@@ -4,10 +4,10 @@
   "description": "make a drop-in js from a more complex html import dependencies tree",
   "main": "index.js",
   "dependencies": {
-    "btoa": "^1.1.2",
     "clint": "0.0.6",
     "elements": "^0.5.0",
-    "jsdom": "^1.0.0-pre.6"
+    "jsdom": "^1.0.0-pre.6",
+    "escodegen":"*"
   },
   "devDependencies": {},
   "scripts": {

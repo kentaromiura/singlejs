@@ -2,8 +2,8 @@ var jsdom = require('jsdom');
 var fs = require('fs')
 var $
 var path = require('path')
-var btoa = require('btoa')
 var clint = require('clint')()
+var escodegen = require('escodegen')
 
 clint.command('--help', '-h', 'General usage information')
 clint.command('--file', '-f', 'Use the html file as a entry point')
@@ -82,9 +82,11 @@ function skippable(node){
 }
 
 function makeInlineScript(html){
+var escapedhtml = escodegen.generate({type:"ExpressionStatement", expression: {type:"Literal", value: html }})
+
   var wrap = [
       '(function(){var temp = document.createElement("div");',
-      'temp.innerHTML = atob("',btoa(html), '");',
+      'temp.innerHTML = ' + escapedhtml + ';',
       'document.head.appendChild(temp.firstChild)})();'
     ]
   return wrap.join('')
