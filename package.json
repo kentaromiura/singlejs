@@ -1,6 +1,6 @@
 {
   "name": "singlejs",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "make a drop-in js from a more complex html import dependencies tree",
   "main": "index.js",
   "dependencies": {
