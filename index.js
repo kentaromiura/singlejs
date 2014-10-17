@@ -159,11 +159,14 @@ function template(node) {
       removeWhiteSpaceNodes(node)
     }
     if (options.useScriptTemplate) {
-      var templateHTML = ['<SCRIPT type="text/template" '];
+      var templateScript = document.createElement('script')
+
       if (node.attributes)[].forEach.call(node.attributes, function(attribute) {
-        templateHTML.push(attribute.name, '="', attribute.value, '" ');
+        templateScript.setAttribute(attribute.name, attribute.value);
       })
-      templateHTML.push('>', node.innerHTML, '</SCRIPT>')
+      templateScript.innerHTML = node.innerHTML
+      node.parentNode.replaceChild(templateScript, node)
+
       ast.scripts.push(makeInlineScript(templateHTML.join('')))
     } else {
       ast.scripts.push(makeInlineScript(node.outerHTML))
