@@ -59,6 +59,13 @@ function traverse(node, callback) {
 }
 
 function stylesheet(node, relativePath) {
+  if (node.nodeName == 'STYLE') {
+    ast.stylesheets.push({
+      type: 'inline',
+      value: node.innerHTML
+    })
+    node.handled = true
+  }
   if (node.nodeName == 'LINK') {
     var rel = node.getAttribute('rel')
     if (rel && rel.toLowerCase() == 'stylesheet') {
@@ -228,7 +235,9 @@ function start(html, relativePath) {
 
     function inlineCSS(array) {
       return array.map(function(entry) {
-        var css = fs.readFileSync(entry)
+
+        var css = entry.type === 'inline' ? entry.value : fs.readFileSync(
+          entry)
         if (options.mangle) css = new CleanCSS()
           .minify(css)
         return '<style>' + css + '</style>'
