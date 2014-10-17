@@ -167,7 +167,7 @@ function template(node) {
       templateScript.innerHTML = node.innerHTML
       node.parentNode.replaceChild(templateScript, node)
 
-      ast.scripts.push(makeInlineScript(templateHTML.join('')))
+      ast.scripts.push(makeInlineScript(templateScript.outerHTML))
     } else {
       ast.scripts.push(makeInlineScript(node.outerHTML))
     }
